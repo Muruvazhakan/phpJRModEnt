@@ -9,9 +9,16 @@
 	if($conn->connect_error)
 	{
 		die("Connection failes:" .$conn->connect_error);
-	}		
+	}	
+	if($imgs == 'all'){
+		$result = $conn->query("SELECT * FROM Header_Details ");
+	}
+	else
+	{
+		$result = $conn->query("SELECT * FROM Header_Details where  imgs ='$imgs' ");
+	}
 	
-	$result = $conn->query("SELECT * FROM Header_Details where  imgs ='$imgs' ");
+	
 		
 if ($result->num_rows > 0) {
 

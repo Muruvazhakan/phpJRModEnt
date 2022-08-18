@@ -13,7 +13,7 @@ $topLine =  $obj['topLine'];
     $title =  $obj['title'];
     $imgcount =  $obj['imgcount'];
 $imgurl =  $obj['imgurl'];
-$imgurl =  $obj['imgurl'];
+$imgs =  $obj['imgs'];
     $titleimage =  $obj['titleimage'];
     $alt =  $obj['alt'];
     $displaytype =  $obj['displaytype'];
@@ -29,7 +29,7 @@ $screen =   $obj['screen'];
     
     if($screen =='update')
     {
-        $updateHeaderDetails = $conn->query(" UPDATE Header_Details set lightBg = '$lightBg' ,lightTextDesc = '$lightTextDesc' ,  label = '$label' , title = '$title' , imgcount = '$imgcount' ,titleimage = '$titleimage' , alt = '$alt' , autoplay = '$autoplay' , display_type = '$displaytype' , user_display = '$userdisplay' where  Header_Details_id = '$headerid' ");
+        $updateHeaderDetails = $conn->query(" UPDATE Header_Details set lightBg = '$lightBg' ,lightTextDesc = '$lightTextDesc' ,  label = '$label' , title = '$title' , imgcount = '$imgcount' ,titleimage = '$titleimage' , alt = '$alt' , autoplay = '$autoplay' , display_type = '$displaytype' , user_display = '$userdisplay',imgs = '$imgs'   where  Header_Details_id = '$headerid' ");
             
         if($updateHeaderDetails)
         {
