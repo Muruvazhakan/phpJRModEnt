@@ -13,6 +13,19 @@
 	if($imgs == 'all'){
 		$result = $conn->query("SELECT * FROM Header_Details ");
 	}
+	else if($imgs == 'header'){
+		$result = $conn->query("SELECT * FROM Header_Details where topLine ='Header'");
+	}
+	else if($imgs == 'multiple' ){
+		if (ls != '66656d6364')
+		{
+			$result = $conn->query("SELECT * FROM Header_Details where topLine !='Header' and imgs ='$imgs' ");
+		}
+		else
+		{
+			$result = $conn->query("SELECT * FROM Header_Details ");
+		}		
+	}
 	else
 	{
 		$result = $conn->query("SELECT * FROM Header_Details where  imgs ='$imgs' ");
@@ -56,9 +69,9 @@ if ($result->num_rows > 0) {
 	echo json_encode($resultarr);
 } else {
 	if ($result->num_rows == 0) {
-		echo  json_encode('No'); // 
+		echo  json_encode('No Data'); // 
 	} else {
-		echo json_encode('check internet connection');
+		echo json_encode('Something Went Wrong');
 	}
 }
 $conn->close();

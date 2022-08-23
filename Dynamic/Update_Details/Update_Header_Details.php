@@ -29,15 +29,15 @@ $screen =   $obj['screen'];
     
     if($screen =='update')
     {
-        $updateHeaderDetails = $conn->query(" UPDATE Header_Details set lightBg = '$lightBg' ,lightTextDesc = '$lightTextDesc' ,  label = '$label' , title = '$title' , imgcount = '$imgcount' ,titleimage = '$titleimage' , alt = '$alt' , autoplay = '$autoplay' , display_type = '$displaytype' , user_display = '$userdisplay',imgs = '$imgs'   where  Header_Details_id = '$headerid' ");
-            
+        $updateHeaderDetails = $conn->query(" UPDATE Header_Details set lightBg = '$lightBg',label = '$label',lightTextDesc = '$lightTextDesc' , title = '$title' , imgcount = '$imgcount' ,titleimage = '$titleimage' , alt = '$alt' , autoplay = '$autoplay' , display_type = '$displaytype' , user_display = '$userdisplay',imgs = '$imgs'   where  Header_Details_id = '$headerid' ");
+        
         if($updateHeaderDetails)
         {
             echo  json_encode('Updated');
         }
         else
         {
-            echo json_encode('no');
+            echo json_encode('Updated Failed');
         }
     }
     else
@@ -50,7 +50,7 @@ $screen =   $obj['screen'];
         }
         else
         {
-            echo json_encode('issue');
+            echo json_encode('Issue in Adding Details');
         }
     }
 
