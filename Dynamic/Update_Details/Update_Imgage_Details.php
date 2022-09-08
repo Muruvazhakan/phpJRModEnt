@@ -1,39 +1,53 @@
-<?php
-use Google\Cloud\Storage\StorageClient;
-header("Access-Control-Allow-Origin:*");
-require_once "./vendor/autoload.php";
-//include '../../DBconfig.php';
-//namespace Google\Cloud\Samples\Auth;
-$serviceAccountPath='./helpone-d08bde72c412_gcp-storage.json';
-$projectId = 'helpone-9bf33';
-$bucketName = 'helpone-9bf33.appspot.com';
-header('Content-Type: application/json');
-//$obj = json_decode(file_get_contens("php://input"));
+<?php include '../../DBconfig.php';
+	//header('Access-Control-Allow-Origin: ' . $HostSite);
+	header("Access-Control-Allow-Origin:*");
+	$json = file_get_contents('php://input');
+	 $obj = json_decode($json,true);
+	 
+	$conn = new mysqli($HostName,$HostUser,$HostPass,$DatabaseName);
 
-$json = file_get_contents('php://input');
- $obj = json_decode($json,true);
-$imgdata= json_decode($json);
-//echo json_encode($imgdata);
-if($imgdata['image'])
-{
-//                      echo json_encode($imgdata['image']);
-}
-                      
-try {
-    $storage = new StorageClient([
-        'keyFilePath' => getcmd().$serviceAccountPath,
-    ]);
+    $uploadtype =  $obj['uploadtype'];
+    $headerid =  $obj['headerid'];
+    $imagetitle =  $obj['imagetitle'];
+    $imagedescription =  $obj['imagedescription'];
+    $imageurlno =  $obj['imageurlno'];   
 
 
-    $bucket = $storage->bucket($bucketName);
-    if (!$bucket->exists()) {
-
-        echo json_encode('img is there');
+	if($conn->connect_error)
+	{
+		die("Connection failes:" .$conn->connect_error);
+	}
+    
+    if($uploadtype =='modify')
+    {
+        $uploadimgdet = $conn->query(" UPDATE Image_Count set  Image_Title = '$imagetitle', Image_Description='$imagedescription' where Image_Header_Id = '$headerid' and  Image_Url_No ='$imageurlno' ");
+        if($uploadimgdet)
+        {
+            echo  json_encode('Updated the Image Details');
+        }
+        else
+        {
+            echo json_encode('Issue in Upload');
+        }
     }
-} catch(Exception $e) {
-    echo json_encode($e);
-}
+    else if($uploadtype =='delete')
+    {
+        $deleteimgdet = $conn->query(" DELETE FROM Image_Count where Image_Header_Id = '$headerid' and  Image_Url_No ='$imageurlno' ");
+        if($deleteimgdet)
+        {
+            echo  json_encode('Deleted the Image Details');
+        }
+        else
+        {
+            echo json_encode('Issue in Deleteion');
+        }
+    }
+    else
+    {       
+            echo json_encode('Issue in Type');
+    }
 
-
+	
+	$conn->close();
 ?>
 

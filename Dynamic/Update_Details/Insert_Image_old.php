@@ -23,12 +23,10 @@ $avatar =  $obj['avatar'];
    $headerid = $_POST["headerid"];
    $imagetitle = $_POST["imgtitle"];
    $imagedescription = $_POST["imgdesc"];
-   $imageurlno = $_POST["imageurlno"];
    //$newfolder_name = 'ModularKitchen';
    $bucketName = 'helpone-9bf33.appspot.com';
    $bucket = $storage->bucket($bucketName);
    $avatar_tmp_name = $_FILES["avatar"]["tmp_name"];
-   
 //   $countfiles = count($_POST);
 
 //   $fileName = $_FILES["avatar"]["name"];
@@ -74,19 +72,10 @@ $avatar =  $obj['avatar'];
                     echo json_encode('issue');
                 }
             }
-       else if($uploadtype=='modify')
-       {
-           
-        $uploadimgdet = $conn->query(" UPDATE Image_Count set  Image_Title = '$imagetitle', Image_Description='$imagedescription' where Image_Header_Id = '$headerid' and  Image_Url_No ='$imageurlno' ");
-        if($uploadimgdet)
-        {
-            echo  json_encode('Updated');
-        }
-        else
-        {
-            echo json_encode('Issue');
-        }
-       }
+//        else if($uploadtype=='modify')
+//        {
+//            -
+//        }
         $cloudPath = 'jrmodularenterprises/'.$folder_name.'/' . $filename;
         $filetmpName = $avatar_tmp_name;
 //        $fileName = 'jr1.jpg';
